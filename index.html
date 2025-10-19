@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chúc Em Sinh Nhật & 20-10 Vui Vẻ 💌</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    color: #fff;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 30px;
+  }
+
+  .envelope {
+    position: relative;
+    width: 220px;
+    height: 140px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform 1s ease;
+    z-index: 1;
+  }
+
+  .envelope::before, .envelope::after {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    border-style: solid;
+  }
+
+  .envelope::before {
+    top: 0; left: 0;
+    border-width: 0 110px 70px 110px;
+    border-color: transparent transparent #ff8da1 transparent;
+  }
+
+  .envelope::after {
+    bottom: 0; left: 0;
+    border-width: 70px 110px 0 110px;
+    border-color: #ff8da1 transparent transparent transparent;
+  }
+
+  .letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%) scale(0.9);
+    width: 300px;
+    background: #fffafc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    opacity: 0;
+    z-index: 2;
+    transition: all 1.2s ease;
+  }
+
+  .letter.open {
+    top: 30%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .letter p {
+    color: #444;
+    font-size: 1.05em;
+    line-height: 1.6;
+    white-space: pre-line;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(255,150,170,0.4);
+  }
+
+  #message {
+    display: none;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 220, 230, 0.3);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 1;
+  }
+
+  .overlay.active {
+    opacity: 1;
+  }
+
+  @keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* floating hearts */
+  .heart {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: float 6s ease-in infinite;
+  }
+
+  .heart::before, .heart::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50%;
+  }
+
+  .heart::before { top: -7px; left: 0; }
+  .heart::after { left: -7px; top: 0; }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+    100% { transform: translateY(-600px) rotate(45deg); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Chúc em Sinh Nhật và 20-10 vui vẻ 💖</h1>
+<h2>Gửi em....</h2>
+
+<div class="overlay" id="overlay"></div>
+<div class="envelope" id="envelope"></div>
+
+<div class="letter" id="letter">
+  <p id="message"></p>
+</div>
+
+<audio id="bgm" src="1doi.mp3"></audio>
+
+<script>
+const envelope = document.getElementById('envelope');
+const letter = document.getElementById('letter');
+const overlay = document.getElementById('overlay');
+const message = document.getElementById('message');
+const bgm = document.getElementById('bgm');
+
+const text = `Gửi em, người con gái anh yêu cũng là người con gái yêu anh.
+Chúc em có một ngày sinh nhật thật vui vẻ hạnh phúc, chúc em tuổi mới ngày càng xinh đẹp, giỏi giang.
+Chúc em ngày 20 tháng 10 hạnh phúc.
+Mong em sẽ mãi bên cạnh anh, yêu anh và chấp nhận anh.
+Cảm ơn tình yêu bé nhỏ đã đến cuộc đời anh.
+
+💗 Yêu cục dàngg nhìuuuu 💗`;
+
+envelope.addEventListener('click', () => {
+  letter.classList.add('open');
+  overlay.classList.add('active');
+  bgm.play();
+  message.style.display = "block";
+  message.textContent = "";
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      message.textContent += text[i];
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 60);
+});
+
+// create floating hearts
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
